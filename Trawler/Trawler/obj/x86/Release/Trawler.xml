@@ -1,0 +1,158 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Trawler
+</name>
+</assembly>
+<members>
+<member name="P:Trawler.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Trawler.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Trawler.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:Trawler.BrowserSession.Cookies">
+	<summary>
+ System.Net.CookieCollection. Provides a collection container for instances of Cookie class 
+ </summary>
+</member><member name="P:Trawler.BrowserSession.FormElements">
+	<summary>
+ Provide a key-value-pair collection of form elements 
+ </summary>
+</member><member name="M:Trawler.BrowserSession.Get(System.String)">
+	<summary>
+ Makes a HTTP GET request to the given URL
+ </summary>
+</member><member name="M:Trawler.BrowserSession.Post(System.String)">
+	<summary>
+ Makes a HTTP POST request to the given URL
+ </summary>
+</member><member name="M:Trawler.BrowserSession.CreateWebRequestObject">
+	<summary>
+ Creates the HtmlWeb object and initializes all event handlers. 
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnPreRequest(System.Net.HttpWebRequest)">
+	<summary>
+ Event handler for HtmlWeb.PreRequestHandler. Occurs before an HTTP request is executed.
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnAfterResponse(System.Net.HttpWebRequest,System.Net.HttpWebResponse)">
+	<summary>
+ Event handler for HtmlWeb.PostResponseHandler. Occurs after a HTTP response is received
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnPreHandleDocument(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Event handler for HtmlWeb.PreHandleDocumentHandler. Occurs before a HTML document is handled
+ </summary>
+</member><member name="M:Trawler.BrowserSession.AddPostDataTo(System.Net.HttpWebRequest)">
+	<summary>
+ Assembles the Post data and attaches to the request object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.AddCookiesTo(System.Net.HttpWebRequest)">
+	<summary>
+ Add cookies to the request object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.SaveCookiesFrom(System.Net.HttpWebRequest,System.Net.HttpWebResponse)">
+	<summary>
+ Saves cookies from the response object to the local CookieCollection object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.SaveHtmlDocument(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Saves the form elements collection by parsing the HTML document
+ </summary>
+</member><member name="M:Trawler.FormElementCollection.#ctor(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Constructor. Parses the HtmlDocument to get all form input elements. 
+ </summary>
+</member><member name="M:Trawler.FormElementCollection.AssemblePostPayload">
+	<summary>
+ Assembles all form elements and values to POST. Also html encodes the values.  
+ </summary>
+</member><member name="T:Trawler.FormElementCollection">
+	<summary>
+ Represents a combined list and collection of Form Elements.
+ </summary>
+</member><member name="M:Trawler.Main.Main_Load(System.Object,System.EventArgs)">
+	<summary>
+ Set Form items on load
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnStartNFTrawl_Click(System.Object,System.EventArgs)">
+	<summary>
+ Main Proc to control the direction of the scrape, gather data and then save to database
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.ExtractLastFeedbackPageNumber(HtmlAgilityPack.HtmlNodeCollection)">
+	<summary>
+ Returns the maximum feedback page number
+ </summary>
+	<param name="Links"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.AgilityPackLogin">
+	<summary>
+ Logs into NF with credentials provided
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.ExtractUsernames(HtmlAgilityPack.HtmlNodeCollection,System.String)">
+	<summary>
+ Extract the usernames from the HTML version of the feedback page
+ </summary>
+	<param name="html"></param>
+	<param name="FlirtLink"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnStopNFTrawl_Click(System.Object,System.EventArgs)">
+	<summary>
+ Sets a stop parameter to exit the next loop.
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnSendMessages_Click(System.Object,System.EventArgs)">
+	<summary>
+ Sends messages to Contacts
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnTest_Click(System.Object,System.EventArgs)">
+	<summary>
+ Sends the email to a single address as a test
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.webNavigate">
+	<summary>
+ Browses to compose message page
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnLogin_Click(System.Object,System.EventArgs)">
+	<summary>
+ Browses to NF login page
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.wb_DocumentCompleted(System.Object,System.Windows.Forms.WebBrowserDocumentCompletedEventArgs)">
+	<summary>
+ Fires when a web page is loaded. Handles logging in and sending messages
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

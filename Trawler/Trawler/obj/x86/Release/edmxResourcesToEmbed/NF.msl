@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NFModelStoreContainer" CdmEntityContainer="NFEntities">
+    <EntitySetMapping Name="ContactToProfiles">
+      <EntityTypeMapping TypeName="NFModel.ContactToProfile">
+        <MappingFragment StoreEntitySet="ContactToProfile">
+          <ScalarProperty Name="ConractToProfile_PK" ColumnName="ConractToProfile_PK" />
+          <ScalarProperty Name="Contact_FK" ColumnName="Contact_FK" />
+          <ScalarProperty Name="ContactSource_FK" ColumnName="ContactSource_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="NFModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="Contact_PK" ColumnName="Contact_PK" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="OriginalContactSource_FK" ColumnName="OriginalContactSource_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailSents">
+      <EntityTypeMapping TypeName="NFModel.EmailSent">
+        <MappingFragment StoreEntitySet="EmailSent">
+          <ScalarProperty Name="EmailSent_PK" ColumnName="EmailSent_PK" />
+          <ScalarProperty Name="EmailTitle" ColumnName="EmailTitle" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tmpContactImports">
+      <EntityTypeMapping TypeName="NFModel.tmpContactImport">
+        <MappingFragment StoreEntitySet="tmpContactImport">
+          <ScalarProperty Name="ContactName_PK" ColumnName="ContactName_PK" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactSources">
+      <EntityTypeMapping TypeName="NFModel.ContactSource">
+        <MappingFragment StoreEntitySet="ContactSource">
+          <ScalarProperty Name="ContactSource_PK" ColumnName="ContactSource_PK" />
+          <ScalarProperty Name="ContactSource1" ColumnName="ContactSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ContactEmail" TypeName="NFModel.ContactEmail" StoreEntitySet="ContactEmail">
+      <EndProperty Name="Contact">
+        <ScalarProperty Name="Contact_PK" ColumnName="Contact_FK" />
+      </EndProperty>
+      <EndProperty Name="EmailSent">
+        <ScalarProperty Name="EmailSent_PK" ColumnName="EmailSent_FK" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,40 @@
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\Trawler.exe.config
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\Trawler.exe
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\Trawler.pdb
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\Trawler.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Main.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Resources.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.exe
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.pdb
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.AddEmail.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.vbprojResolveAssemblyReference.cache
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.vbproj.GenerateResource.Cache
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Categories.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmTrawler.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmSettings.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmAdmin.resources
+Y:\Manual_Backup 20130727\Documents\Visual Studio 2010\Projects\Trawler\Trawler\bin\Debug\Trawler.exe.config
+Y:\Manual_Backup 20130727\Documents\Visual Studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.exe
+Y:\Manual_Backup 20130727\Documents\Visual Studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.xml
+Y:\Manual_Backup 20130727\Documents\Visual Studio 2010\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.pdb
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\Trawler.exe.config
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.exe
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.xml
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.pdb
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\Trawler.exe
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\Trawler.pdb
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\Trawler.xml
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.vbprojResolveAssemblyReference.cache
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.AddEmail.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Categories.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmAdmin.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmSettings.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.frmTrawler.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Main.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.Resources.resources
+C:\Users\Richard\Documents\Visual Studio 2012\Projects\Trawler\Trawler\obj\x86\Debug\Trawler.vbproj.GenerateResource.Cache

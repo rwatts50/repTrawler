@@ -1,0 +1,252 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Trawler
+</name>
+</assembly>
+<members>
+<member name="M:Trawler.Trawler.NFLogin">
+	<summary>
+ Logs into NF with credentials provided
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Trawler.GetPageProfiles(System.String)">
+	<summary>
+ Get all the web addresses of the 12 profiles on a search page
+ </summary>
+	<param name="CategoryPageWebAddress"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Trawler.GetLastPageNumber(System.String)">
+	<summary>
+ Get the last feedback page number of a Profile
+ </summary>
+	<param name="FlirtProfile"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Trawler.GetUserNames(System.String,System.Int32)">
+	<summary>
+ Get the usernames from a feedback page
+ </summary>
+	<param name="FlirtProfile"></param>
+	<param name="LastPageNumber"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Trawler.ExtractLastFeedbackPageNumber(HtmlAgilityPack.HtmlNodeCollection)">
+	<summary>
+ Returns the maximum feedback page number
+ </summary>
+	<param name="Links"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Trawler.ExtractUsernames(HtmlAgilityPack.HtmlNodeCollection,System.String,System.String)">
+	<summary>
+ Extract the usernames from the HTML version of the feedback page
+ </summary>
+	<param name="html"></param>
+	<param name="FlirtLink"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.#ctor">
+	<summary>
+ Default constructor
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.#ctor(Trawler.Setting)">
+	<summary>
+  Constructor with settings
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.#ctor(System.Windows.Forms.DataGridViewSelectedRowCollection,Trawler.Setting)">
+	<summary>
+ Construnctor for setting subject and body to selected row
+ </summary>
+	<param name="dc"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.PopulateContactsSingleEmail">
+	<summary>
+ Gets all recipients in one string
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.PopulateContactsMultipleEmail">
+	<summary>
+ Gets recipients in a list with no item in the list being over 1000 charactors long
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.wbLogin">
+	<summary>
+ Browses to NF login page
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.SendMulitipleEmails">
+	<summary>
+ Sends multiple emails to recipients
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.SendSingleEmail">
+	<summary>
+ Sends single email to recipients
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.wbCompose">
+	<summary>
+ Browses to compose message page
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.Logout">
+	<summary>
+ Navigates to Account to set up logout
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Email.wb_DocumentCompleted(System.Object,System.Windows.Forms.WebBrowserDocumentCompletedEventArgs)">
+	<summary>
+ Fires when a web page is loaded. Handles logging in and sending messages
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="P:Trawler.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Trawler.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Trawler.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:Trawler.frmTrawler.btnStartNFTrawl_Click(System.Object,System.EventArgs)">
+	<summary>
+ Main Proc to control the direction of the scrape, gather data and then save to database
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.frmTrawler.btnStopNFTrawl_Click(System.Object,System.EventArgs)">
+	<summary>
+ Sets a stop parameter to exit the next loop.
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.Main_Load(System.Object,System.EventArgs)">
+	<summary>
+ Set Form items on load
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.btnSendMessages_Click(System.Object,System.EventArgs)">
+	<summary>
+ Sends messages to Contacts
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.SetGridFormatting">
+	<summary>
+ Formats the DataGridViews
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.grdProfiles_SelectionChanged(System.Object,System.EventArgs)">
+	<summary>
+ Populates Email grid based on selected profile
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.grdProfiles_CellBeginEdit(System.Object,System.Windows.Forms.DataGridViewCellCancelEventArgs)">
+	<summary>
+ Stops cells being edited in Profile grid
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.grdEmails_CellBeginEdit(System.Object,System.Windows.Forms.DataGridViewCellCancelEventArgs)">
+	<summary>
+ Stops cells being edited in Email grid
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.grdProfiles_CellStateChanged(System.Object,System.Windows.Forms.DataGridViewCellStateChangedEventArgs)">
+	<summary>
+ Stops cells being selected in Profile grid
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Trawler.Main.grdEmails_CellStateChanged(System.Object,System.Windows.Forms.DataGridViewCellStateChangedEventArgs)">
+	<summary>
+ Stops cells from being selected in Email grid
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="P:Trawler.BrowserSession.Cookies">
+	<summary>
+ System.Net.CookieCollection. Provides a collection container for instances of Cookie class 
+ </summary>
+</member><member name="P:Trawler.BrowserSession.FormElements">
+	<summary>
+ Provide a key-value-pair collection of form elements 
+ </summary>
+</member><member name="M:Trawler.BrowserSession.Get(System.String)">
+	<summary>
+ Makes a HTTP GET request to the given URL
+ </summary>
+</member><member name="M:Trawler.BrowserSession.Post(System.String)">
+	<summary>
+ Makes a HTTP POST request to the given URL
+ </summary>
+</member><member name="M:Trawler.BrowserSession.CreateWebRequestObject">
+	<summary>
+ Creates the HtmlWeb object and initializes all event handlers. 
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnPreRequest(System.Net.HttpWebRequest)">
+	<summary>
+ Event handler for HtmlWeb.PreRequestHandler. Occurs before an HTTP request is executed.
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnAfterResponse(System.Net.HttpWebRequest,System.Net.HttpWebResponse)">
+	<summary>
+ Event handler for HtmlWeb.PostResponseHandler. Occurs after a HTTP response is received
+ </summary>
+</member><member name="M:Trawler.BrowserSession.OnPreHandleDocument(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Event handler for HtmlWeb.PreHandleDocumentHandler. Occurs before a HTML document is handled
+ </summary>
+</member><member name="M:Trawler.BrowserSession.AddPostDataTo(System.Net.HttpWebRequest)">
+	<summary>
+ Assembles the Post data and attaches to the request object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.AddCookiesTo(System.Net.HttpWebRequest)">
+	<summary>
+ Add cookies to the request object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.SaveCookiesFrom(System.Net.HttpWebRequest,System.Net.HttpWebResponse)">
+	<summary>
+ Saves cookies from the response object to the local CookieCollection object
+ </summary>
+</member><member name="M:Trawler.BrowserSession.SaveHtmlDocument(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Saves the form elements collection by parsing the HTML document
+ </summary>
+</member><member name="M:Trawler.FormElementCollection.#ctor(HtmlAgilityPack.HtmlDocument)">
+	<summary>
+ Constructor. Parses the HtmlDocument to get all form input elements. 
+ </summary>
+</member><member name="M:Trawler.FormElementCollection.AssemblePostPayload">
+	<summary>
+ Assembles all form elements and values to POST. Also html encodes the values.  
+ </summary>
+</member><member name="T:Trawler.FormElementCollection">
+	<summary>
+ Represents a combined list and collection of Form Elements.
+ </summary>
+</member>
+</members>
+</doc>

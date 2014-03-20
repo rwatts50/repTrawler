@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NFModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="NFEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ContactToProfiles" EntityType="NFModel.ContactToProfile" />
+    <EntitySet Name="Contacts" EntityType="NFModel.Contact" />
+    <EntitySet Name="EmailSents" EntityType="NFModel.EmailSent" />
+    <EntitySet Name="tmpContactImports" EntityType="NFModel.tmpContactImport" />
+    <EntitySet Name="ContactSources" EntityType="NFModel.ContactSource" />
+    <AssociationSet Name="FK_ContactToProfile_Contact" Association="NFModel.FK_ContactToProfile_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="ContactToProfile" EntitySet="ContactToProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactToProfile_ContactToProfile" Association="NFModel.FK_ContactToProfile_ContactToProfile">
+      <End Role="ContactSource" EntitySet="ContactSources" />
+      <End Role="ContactToProfile" EntitySet="ContactToProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_Contact" Association="NFModel.FK_Contact_Contact">
+      <End Role="ContactSource" EntitySet="ContactSources" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmailSent_EmailSent" Association="NFModel.FK_EmailSent_EmailSent">
+      <End Role="EmailSent" EntitySet="EmailSents" />
+      <End Role="EmailSent1" EntitySet="EmailSents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactSource_ContactSource" Association="NFModel.FK_ContactSource_ContactSource">
+      <End Role="ContactSource" EntitySet="ContactSources" />
+      <End Role="ContactSource1" EntitySet="ContactSources" />
+    </AssociationSet>
+    <AssociationSet Name="ContactEmail" Association="NFModel.ContactEmail">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="EmailSent" EntitySet="EmailSents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ContactToProfile">
+    <Key>
+      <PropertyRef Name="ConractToProfile_PK" />
+    </Key>
+    <Property Name="ConractToProfile_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Contact_FK" Type="Int32" Nullable="false" />
+    <Property Name="ContactSource_FK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Contact" Relationship="NFModel.FK_ContactToProfile_Contact" FromRole="ContactToProfile" ToRole="Contact" />
+    <NavigationProperty Name="ContactSource" Relationship="NFModel.FK_ContactToProfile_ContactToProfile" FromRole="ContactToProfile" ToRole="ContactSource" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Contact_PK" />
+    </Key>
+    <Property Name="Contact_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OriginalContactSource_FK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ContactToProfiles" Relationship="NFModel.FK_ContactToProfile_Contact" FromRole="Contact" ToRole="ContactToProfile" />
+    <NavigationProperty Name="ContactSource" Relationship="NFModel.FK_Contact_Contact" FromRole="Contact" ToRole="ContactSource" />
+    <NavigationProperty Name="EmailSents" Relationship="NFModel.ContactEmail" FromRole="Contact" ToRole="EmailSent" />
+  </EntityType>
+  <EntityType Name="EmailSent">
+    <Key>
+      <PropertyRef Name="EmailSent_PK" />
+    </Key>
+    <Property Name="EmailSent_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailTitle" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="DateSent" Type="DateTime" />
+    <NavigationProperty Name="EmailSent1" Relationship="NFModel.FK_EmailSent_EmailSent" FromRole="EmailSent" ToRole="EmailSent1" />
+    <NavigationProperty Name="EmailSent2" Relationship="NFModel.FK_EmailSent_EmailSent" FromRole="EmailSent1" ToRole="EmailSent" />
+    <NavigationProperty Name="Contacts" Relationship="NFModel.ContactEmail" FromRole="EmailSent" ToRole="Contact" />
+  </EntityType>
+  <EntityType Name="tmpContactImport">
+    <Key>
+      <PropertyRef Name="ContactName_PK" />
+    </Key>
+    <Property Name="ContactName_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactName" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ContactSource">
+    <Key>
+      <PropertyRef Name="ContactSource_PK" />
+    </Key>
+    <Property Name="ContactSource_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactSource1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="ContactToProfiles" Relationship="NFModel.FK_ContactToProfile_ContactToProfile" FromRole="ContactSource" ToRole="ContactToProfile" />
+    <NavigationProperty Name="Contacts" Relationship="NFModel.FK_Contact_Contact" FromRole="ContactSource" ToRole="Contact" />
+    <NavigationProperty Name="ContactSource11" Relationship="NFModel.FK_ContactSource_ContactSource" FromRole="ContactSource" ToRole="ContactSource1" />
+    <NavigationProperty Name="ContactSource2" Relationship="NFModel.FK_ContactSource_ContactSource" FromRole="ContactSource1" ToRole="ContactSource" />
+  </EntityType>
+  <Association Name="FK_ContactToProfile_Contact">
+    <End Role="Contact" Type="NFModel.Contact" Multiplicity="1" />
+    <End Role="ContactToProfile" Type="NFModel.ContactToProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Contact_PK" />
+      </Principal>
+      <Dependent Role="ContactToProfile">
+        <PropertyRef Name="Contact_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactToProfile_ContactToProfile">
+    <End Role="ContactSource" Type="NFModel.ContactSource" Multiplicity="1" />
+    <End Role="ContactToProfile" Type="NFModel.ContactToProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContactSource">
+        <PropertyRef Name="ContactSource_PK" />
+      </Principal>
+      <Dependent Role="ContactToProfile">
+        <PropertyRef Name="ContactSource_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_Contact">
+    <End Role="ContactSource" Type="NFModel.ContactSource" Multiplicity="1" />
+    <End Role="Contact" Type="NFModel.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContactSource">
+        <PropertyRef Name="ContactSource_PK" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="OriginalContactSource_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmailSent_EmailSent">
+    <End Role="EmailSent" Type="NFModel.EmailSent" Multiplicity="1" />
+    <End Role="EmailSent1" Type="NFModel.EmailSent" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmailSent">
+        <PropertyRef Name="EmailSent_PK" />
+      </Principal>
+      <Dependent Role="EmailSent1">
+        <PropertyRef Name="EmailSent_PK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactSource_ContactSource">
+    <End Role="ContactSource" Type="NFModel.ContactSource" Multiplicity="1" />
+    <End Role="ContactSource1" Type="NFModel.ContactSource" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ContactSource">
+        <PropertyRef Name="ContactSource_PK" />
+      </Principal>
+      <Dependent Role="ContactSource1">
+        <PropertyRef Name="ContactSource_PK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContactEmail">
+    <End Role="Contact" Type="NFModel.Contact" Multiplicity="*" />
+    <End Role="EmailSent" Type="NFModel.EmailSent" Multiplicity="*" />
+  </Association>
+</Schema>

@@ -1,0 +1,15 @@
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\Trawler.exe.config
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\Trawler.exe
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\Trawler.pdb
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\Trawler.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\HtmlAgilityPack.dll
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\HtmlAgilityPack.pdb
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\bin\Release\HtmlAgilityPack.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\Trawler.Main.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\Trawler.Resources.resources
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\Trawler.exe
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\Trawler.xml
+C:\Users\Richard\documents\visual studio 2010\Projects\Trawler\Trawler\obj\x86\Release\Trawler.pdb
