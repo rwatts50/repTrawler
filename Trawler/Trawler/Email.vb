@@ -233,8 +233,9 @@ Public Class Email
       Dim arrEmailContactsSingle As String() = _EmailContactsSingle.Split(",")
       _NoTotalContactsSent = arrEmailContactsSingle.Length
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
 
   End Sub
@@ -254,8 +255,9 @@ Public Class Email
         _NoTotalContactsSent = _NoTotalContactsSent + arrEmailContactsSingle.Length
       Next
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
   End Sub
 
@@ -274,8 +276,9 @@ Public Class Email
         Loop
       End If
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
   End Sub
 
@@ -295,8 +298,9 @@ Public Class Email
         Next
       End If
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
   End Sub
 
@@ -310,8 +314,9 @@ Public Class Email
       Recipients = EmailContactsSingle
       wbCompose()
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
   End Sub
 
@@ -328,8 +333,9 @@ Public Class Email
         Application.DoEvents()
       Loop
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
   End Sub
 
@@ -348,8 +354,9 @@ Public Class Email
         Application.DoEvents()
       Loop
 
-    Catch ex As Exception
-      MsgBox(ex.Message)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message)
     End Try
 
   End Sub
@@ -478,8 +485,9 @@ Public Class Email
         End If
       End If
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
     End Try
 
   End Sub

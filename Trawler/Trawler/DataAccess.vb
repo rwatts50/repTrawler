@@ -145,7 +145,8 @@ Public Class DataAccess
       Using sc As New SqlConnection(connstring)
         sc.Open()
         Using command As New SqlClient.SqlCommand("ExtractContactsForEmailSingle", sc)
-          command.CommandType = CommandType.StoredProcedure
+                    command.CommandTimeout = 60
+                    command.CommandType = CommandType.StoredProcedure
           command.Parameters.Add(New SqlParameter("@EmailSent_FK", EmailSent_FK))
           command.Parameters.Add(New SqlParameter("@LastFeedbackDate", LastFeedbackDate))
           command.Parameters.Add(New SqlParameter("@NumberOfContacts", NumberOfContacts))
@@ -251,7 +252,38 @@ Public Class DataAccess
 
     Return ds
 
-  End Function
+    End Function
+
+    Public Shared Function PopulateContactsForReview() As DataSet
+
+        Dim ds As New DataSet()
+
+        Try
+
+            Dim connstring As String = "data source=LAP1\SQLEXPRESS;initial catalog=NF;integrated security=True;multipleactiveresultsets=True"
+            Using sc As New SqlConnection(connstring)
+                sc.Open()
+                Using command As New SqlClient.SqlCommand("GetContactsForReview", sc)
+                    command.CommandType = CommandType.StoredProcedure
+                    Dim adp As New SqlDataAdapter(command)
+                    adp.Fill(ds)
+                End Using
+                sc.Close()
+            End Using
+
+            'Create a colum to select rows
+            ds.Tables(0).Columns.Add(New DataColumn("Select", System.Type.GetType("System.Boolean")))
+            ds.Tables(0).Columns("Select").ReadOnly = False
+            ds.Tables(0).Columns("Select").DefaultValue = False
+            ds.Tables(0).Columns("Select").SetOrdinal(0)
+
+        Catch ex As Exception
+            MsgBox(ex.Message & Now.ToString)
+        End Try
+
+        Return ds
+
+    End Function
 
 
   Public Shared Function PopulateSelectedCategories(ByVal Profile_FK As Integer) As List(Of String)
@@ -373,7 +405,7 @@ Public Class DataAccess
             Dim connstring As String = "data source=LAP1\SQLEXPRESS;initial catalog=NF;integrated security=True;multipleactiveresultsets=True"
       Dim List As New List(Of String)
       Dim ListToSend As New List(Of SqlDataRecord)
-      Dim tvp_definition As SqlMetaData() = {New SqlMetaData("Col1", SqlDbType.NVarChar, 255)} 'Convert List to IDataReader
+            Dim tvp_definition As SqlMetaData() = {New SqlMetaData("Col1", SqlDbType.NVarChar, 255)} 'Convert List to IDataReader
 
       For Each cat As String In Categories
         Dim rec As SqlDataRecord = New SqlDataRecord(tvp_definition)
@@ -404,8 +436,44 @@ Public Class DataAccess
 
   End Function
 
+    Public Shared Function ImportSelectedContacts(ByVal ContactsSelected As List(Of Int32)) As String
 
+        Dim res As String = String.Empty
 
+        Try
+
+            Dim connstring As String = "data source=LAP1\SQLEXPRESS;initial catalog=NF;integrated security=True;multipleactiveresultsets=True"
+            Dim List As New List(Of String)
+            Dim ListToSend As New List(Of SqlDataRecord)
+            Dim tvp_definition As SqlMetaData() = {New SqlMetaData("Col1", SqlDbType.NVarChar, 255)} 'Convert List to IDataReader
+
+            For Each cont As String In ContactsSelected
+                Dim rec As SqlDataRecord = New SqlDataRecord(tvp_definition)
+                rec.SetString(0, cont)
+                ListToSend.Add(rec)
+            Next
+
+            Using sc As New SqlConnection(connstring)
+                sc.Open()
+                Using command As New SqlClient.SqlCommand("ImportApprovedContacts", sc)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add("@ContactForReview_PKs", SqlDbType.Structured)
+                    command.Parameters("@ContactForReview_PKs").Direction = ParameterDirection.Input
+                    command.Parameters("@ContactForReview_PKs").TypeName = "string_list"
+                    command.Parameters("@ContactForReview_PKs").Value = ListToSend
+                    Dim reader As SqlClient.SqlDataReader = command.ExecuteReader
+                    reader.Close()
+                End Using
+                sc.Close()
+            End Using
+
+        Catch ex As Exception
+            MsgBox(ex.Message & Now.ToString)
+        End Try
+
+        Return res
+
+    End Function
   Public Shared Function SaveEmail(ByVal Action As String, ByVal Email_PK As Integer, ByVal Profile_FK As Integer, ByVal Subject As String, ByVal Body As String, _
                                    ByVal EstimatedValue As Decimal) As Integer
 
@@ -609,8 +677,44 @@ Public Class DataAccess
     End Try
 
     Return 0
-  End Function
+    End Function
 
+    Public Shared Sub ClearContactsForReviewTable(Optional ByVal ContactsSelected As List(Of Int32) = Nothing)
+
+        Try
+
+            Dim connstring As String = "data source=LAP1\SQLEXPRESS;initial catalog=NF;integrated security=True;multipleactiveresultsets=True"
+            Dim List As New List(Of String)
+            Dim ListToSend As New List(Of SqlDataRecord)
+            Dim tvp_definition As SqlMetaData() = {New SqlMetaData("Col1", SqlDbType.NVarChar, 255)} 'Convert List to IDataReader
+
+            If ContactsSelected IsNot Nothing Then
+                For Each cont As String In ContactsSelected
+                    Dim rec As SqlDataRecord = New SqlDataRecord(tvp_definition)
+                    rec.SetString(0, cont)
+                    ListToSend.Add(rec)
+                Next
+            End If
+
+            Using sc As New SqlConnection(connstring)
+                sc.Open()
+                Using command As New SqlClient.SqlCommand("ClearContactsForReviewTable", sc)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add("@ContactForReview_PKs", SqlDbType.Structured)
+                    command.Parameters("@ContactForReview_PKs").Direction = ParameterDirection.Input
+                    command.Parameters("@ContactForReview_PKs").TypeName = "string_list"
+                    command.Parameters("@ContactForReview_PKs").Value = ListToSend
+                    Dim reader As SqlClient.SqlDataReader = command.ExecuteReader
+                    reader.Close()
+                End Using
+                sc.Close()
+            End Using
+
+        Catch ex As Exception
+            MsgBox(ex.Message & Now.ToString)
+        End Try
+
+    End Sub
 #End Region
 
 #Region "To File"
@@ -639,7 +743,18 @@ Public Class DataAccess
     Catch ex As Exception
       MsgBox(ex.Message & Now.ToString)
     End Try
-  End Sub
+    End Sub
+
+    Public Shared Sub ErrorLog(ByVal ex As Exception)
+        Dim today As DateTime = Now
+        Using writer As StreamWriter = New StreamWriter(Environment.CurrentDirectory & "ErrorLog.txt", True)
+            writer.WriteLine(today & ": Exception Thrown: " & ex.Message & vbCrLf & _
+                             "Inner Exception: " & ex.InnerException.Message & vbCrLf & _
+                             "Stack Trance: " & ex.StackTrace & vbCrLf & _
+                             "TargetSite: " & ex.TargetSite.ToString & vbCrLf)
+        End Using
+    End Sub
+
 
 #End Region
 

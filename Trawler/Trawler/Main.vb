@@ -13,13 +13,10 @@ Imports System.Threading.Tasks
 Imports System.Net
 Imports System.Net.Cache
 Imports System.Text.RegularExpressions
+Imports System.Linq
 
 'TODO: 
 'Make an msi App.
-'Multi threading for Stop buttons (trawl and search)
-'Get events to show whats going on.
-'Don't let services sleep when trawling.
-'Licencing
 
 Public Class Main
 
@@ -172,6 +169,7 @@ Public Class Main
         SendEmail.SendSingleEmail()
       End If
 
+      lblbstripStatus.Text = SendEmail.NoTotalContactsSent & "Messages Sent"
       'SendEmail.Logout()
 
       'lblEmailsAttemptedNo.Text = SendEmail.NoTotalContactsSent
@@ -552,6 +550,23 @@ Public Class Main
     End If
   End Sub
 
+    Private Sub ReviewImportedContactsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReviewImportedContactsToolStripMenuItem.Click
+        Dim frmContactForReviewForm As New frmContactReview()
+        frmContactForReviewForm.ShowDialog()
+    End Sub
 
+  Private Sub btnImportContacts_Click(sender As Object, e As EventArgs) Handles btnImportContacts.Click
+    Dim impContacts As Trawler = New Trawler()
+    Dim profilePK As Integer
+    Dim profileName As String
+
+    For Each dr As DataGridViewRow In grdProfiles.SelectedRows
+      profilePK = dr.Cells("Profile_PK").Value
+      profileName = dr.Cells("ProfileName").Value
+    Next
+    Dim b As Boolean = impContacts.ImportContacts(profilePK, profileName)
+
+
+  End Sub
 End Class
 

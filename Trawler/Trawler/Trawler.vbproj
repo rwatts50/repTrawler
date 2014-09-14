@@ -73,6 +73,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.42.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -103,6 +106,12 @@
     </Compile>
     <Compile Include="Constants.vb" />
     <Compile Include="ContactInfo.vb" />
+    <Compile Include="frmContactReview.Designer.vb">
+      <DependentUpon>frmContactReview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmContactReview.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DataAccess.vb" />
     <Compile Include="Email.vb" />
     <Compile Include="frmAdmin.Designer.vb">
@@ -159,6 +168,9 @@
     <EmbeddedResource Include="Categories.resx">
       <DependentUpon>Categories.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmContactReview.resx">
+      <DependentUpon>frmContactReview.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAdmin.resx">
       <DependentUpon>frmAdmin.vb</DependentUpon>
     </EmbeddedResource>
@@ -192,6 +204,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

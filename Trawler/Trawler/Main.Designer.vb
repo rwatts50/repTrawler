@@ -26,7 +26,7 @@ Partial Class Main
     Me.wbProf = New System.Windows.Forms.WebBrowser()
     Me.stripStatus = New System.Windows.Forms.StatusStrip()
     Me.lblbstripStatus = New System.Windows.Forms.ToolStripStatusLabel()
-    Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+    Me.EmailToolStripStatus = New System.Windows.Forms.ToolStripStatusLabel()
     Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
     Me.Menu = New System.Windows.Forms.MenuStrip()
     Me.File = New System.Windows.Forms.ToolStripMenuItem()
@@ -34,6 +34,7 @@ Partial Class Main
     Me.mSettings = New System.Windows.Forms.ToolStripMenuItem()
     Me.mCategories = New System.Windows.Forms.ToolStripMenuItem()
     Me.mExit = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ReviewImportedContactsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.lblTest = New System.Windows.Forms.Label()
     Me.grdEmails = New System.Windows.Forms.DataGridView()
     Me.btnSendMessages = New System.Windows.Forms.Button()
@@ -43,6 +44,7 @@ Partial Class Main
     Me.grdProfiles = New System.Windows.Forms.DataGridView()
     Me.chkTest = New System.Windows.Forms.CheckBox()
     Me.ListEmailReport = New System.Windows.Forms.ListView()
+    Me.btnImportContacts = New System.Windows.Forms.Button()
     Me.stripStatus.SuspendLayout()
     Me.Menu.SuspendLayout()
     CType(Me.grdEmails, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,7 +61,7 @@ Partial Class Main
     '
     'stripStatus
     '
-    Me.stripStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblbstripStatus, Me.ToolStripStatusLabel1})
+    Me.stripStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblbstripStatus, Me.EmailToolStripStatus})
     Me.stripStatus.Location = New System.Drawing.Point(0, 437)
     Me.stripStatus.Name = "stripStatus"
     Me.stripStatus.Size = New System.Drawing.Size(779, 22)
@@ -70,11 +72,10 @@ Partial Class Main
     Me.lblbstripStatus.Name = "lblbstripStatus"
     Me.lblbstripStatus.Size = New System.Drawing.Size(0, 17)
     '
-    'ToolStripStatusLabel1
+    'EmailToolStripStatus
     '
-    Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-    Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(121, 17)
-    Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+    Me.EmailToolStripStatus.Name = "EmailToolStripStatus"
+    Me.EmailToolStripStatus.Size = New System.Drawing.Size(0, 17)
     '
     'OpenFileDialog1
     '
@@ -91,7 +92,7 @@ Partial Class Main
     '
     'File
     '
-    Me.File.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mTrawler, Me.mSettings, Me.mCategories, Me.mExit})
+    Me.File.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mTrawler, Me.mSettings, Me.mCategories, Me.mExit, Me.ReviewImportedContactsToolStripMenuItem})
     Me.File.Name = "File"
     Me.File.Size = New System.Drawing.Size(37, 20)
     Me.File.Text = "File"
@@ -99,26 +100,32 @@ Partial Class Main
     'mTrawler
     '
     Me.mTrawler.Name = "mTrawler"
-    Me.mTrawler.Size = New System.Drawing.Size(130, 22)
+    Me.mTrawler.Size = New System.Drawing.Size(213, 22)
     Me.mTrawler.Text = "Trawler"
     '
     'mSettings
     '
     Me.mSettings.Name = "mSettings"
-    Me.mSettings.Size = New System.Drawing.Size(130, 22)
+    Me.mSettings.Size = New System.Drawing.Size(213, 22)
     Me.mSettings.Text = "Settings"
     '
     'mCategories
     '
     Me.mCategories.Name = "mCategories"
-    Me.mCategories.Size = New System.Drawing.Size(130, 22)
+    Me.mCategories.Size = New System.Drawing.Size(213, 22)
     Me.mCategories.Text = "Categories"
     '
     'mExit
     '
     Me.mExit.Name = "mExit"
-    Me.mExit.Size = New System.Drawing.Size(130, 22)
+    Me.mExit.Size = New System.Drawing.Size(213, 22)
     Me.mExit.Text = "Exit"
+    '
+    'ReviewImportedContactsToolStripMenuItem
+    '
+    Me.ReviewImportedContactsToolStripMenuItem.Name = "ReviewImportedContactsToolStripMenuItem"
+    Me.ReviewImportedContactsToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+    Me.ReviewImportedContactsToolStripMenuItem.Text = "Review Imported Contacts"
     '
     'lblTest
     '
@@ -140,9 +147,9 @@ Partial Class Main
     '
     'btnSendMessages
     '
-    Me.btnSendMessages.Location = New System.Drawing.Point(50, 228)
+    Me.btnSendMessages.Location = New System.Drawing.Point(12, 243)
     Me.btnSendMessages.Name = "btnSendMessages"
-    Me.btnSendMessages.Size = New System.Drawing.Size(113, 52)
+    Me.btnSendMessages.Size = New System.Drawing.Size(78, 37)
     Me.btnSendMessages.TabIndex = 37
     Me.btnSendMessages.Text = "Send Messages"
     Me.btnSendMessages.UseVisualStyleBackColor = True
@@ -199,11 +206,21 @@ Partial Class Main
     Me.ListEmailReport.TabIndex = 45
     Me.ListEmailReport.UseCompatibleStateImageBehavior = False
     '
+    'btnImportContacts
+    '
+    Me.btnImportContacts.Location = New System.Drawing.Point(105, 243)
+    Me.btnImportContacts.Name = "btnImportContacts"
+    Me.btnImportContacts.Size = New System.Drawing.Size(78, 37)
+    Me.btnImportContacts.TabIndex = 46
+    Me.btnImportContacts.Text = "Import Contacts"
+    Me.btnImportContacts.UseVisualStyleBackColor = True
+    '
     'Main
     '
     Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
     Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Me.ClientSize = New System.Drawing.Size(779, 459)
+    Me.Controls.Add(Me.btnImportContacts)
     Me.Controls.Add(Me.ListEmailReport)
     Me.Controls.Add(Me.chkTest)
     Me.Controls.Add(Me.lblTest)
@@ -233,7 +250,7 @@ Partial Class Main
   Friend WithEvents stripStatus As System.Windows.Forms.StatusStrip
   Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
   Friend WithEvents lblbstripStatus As System.Windows.Forms.ToolStripStatusLabel
-  Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+  Friend WithEvents EmailToolStripStatus As System.Windows.Forms.ToolStripStatusLabel
   Friend WithEvents Menu As System.Windows.Forms.MenuStrip
   Friend WithEvents File As System.Windows.Forms.ToolStripMenuItem
   Friend WithEvents mSettings As System.Windows.Forms.ToolStripMenuItem
@@ -248,6 +265,8 @@ Partial Class Main
   Friend WithEvents txtTestUser As System.Windows.Forms.TextBox
   Friend WithEvents grdProfiles As System.Windows.Forms.DataGridView
   Friend WithEvents chkTest As System.Windows.Forms.CheckBox
-  Friend WithEvents ListEmailReport As System.Windows.Forms.ListView
+    Friend WithEvents ListEmailReport As System.Windows.Forms.ListView
+  Friend WithEvents ReviewImportedContactsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents btnImportContacts As System.Windows.Forms.Button
 
 End Class

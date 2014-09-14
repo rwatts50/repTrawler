@@ -65,4 +65,7 @@ Public Class Categories
 
   End Sub
 
+    Private Sub grdEmailCategories_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdEmailCategories.CellContentClick
+
+    End Sub
 End Class

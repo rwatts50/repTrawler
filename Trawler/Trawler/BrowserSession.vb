@@ -18,6 +18,15 @@ Public Class BrowserSession
 
 #Region "Public Properties"
 
+    Public Property HtmlDoc As HtmlDocument
+        Get
+            Return _htmlDoc
+        End Get
+        Set(value As HtmlDocument)
+            _htmlDoc = value
+        End Set
+    End Property
+
   ''' <summary>
   ''' System.Net.CookieCollection. Provides a collection container for instances of Cookie class 
   ''' </summary>

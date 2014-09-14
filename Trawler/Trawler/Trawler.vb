@@ -9,192 +9,234 @@ Imports System.ComponentModel
 Imports System.Collections.ObjectModel
 Imports Microsoft.SqlServer.Server
 Imports System.IO
+Imports OpenQA.Selenium
+Imports OpenQA.Selenium.Firefox
 
 Public Class Trawler
 
 #Region "Members"
 
-  Private _UserName As String
-  Private _Password As String
-  Private _BSession As BrowserSession
-  Private _WebAddresses As List(Of SearchAddressLink)
-  Private _FlirtLinksAlreadyKnown As List(Of String)
-  Private _StopTrawl As Boolean = False
-  Private _DeepSearch As Boolean = False
-  Private _LightSearch As Boolean = False
-  Private _FlirtLinksAlreadyScraped As New List(Of String)
-
+    Private _UserName As String
+    Private _Password As String
+    Private _BSession As BrowserSession
+    Private _WebAddresses As List(Of SearchAddressLink)
+    Private _FlirtLinksAlreadyKnown As List(Of String)
+    Private _StopTrawl As Boolean = False
+    Private _DeepSearch As Boolean = False
+    Private _LightSearch As Boolean = False
+    Private _FlirtLinksAlreadyScraped As New List(Of String)
+    Private _webDriv As OpenQA.Selenium.Firefox.FirefoxDriver
+    Public Event _DisplayReport(ByVal report As String)
+    Public Event _DisplayProgressBar(ByVal count As Integer)
+    Public Event _UpdateTotalCount(ByVal Total As Integer)
+    Private TotalLoopCount As Integer
 #End Region
 
 #Region "Public Properties"
 
-  Public Property UserName As String
-    Get
-      Return _UserName
-    End Get
-    Set(value As String)
-      _UserName = value
-    End Set
-  End Property
-  Public Property Password As String
-    Get
-      Return _Password
-    End Get
-    Set(value As String)
-      _Password = value
-    End Set
-  End Property
-  Public Property BSession As BrowserSession
-    Get
-      Return _BSession
-    End Get
-    Set(value As BrowserSession)
-      _BSession = value
-    End Set
-  End Property
-  Public Property WebAddresses As List(Of SearchAddressLink)
-    Get
-      Return _WebAddresses
-    End Get
-    Set(value As List(Of SearchAddressLink))
-      _WebAddresses = value
-    End Set
-  End Property
-  Public Property FlirtLinksAlreadyKnown As List(Of String)
-    Get
-      Return _FlirtLinksAlreadyKnown
-    End Get
-    Set(value As List(Of String))
-      _FlirtLinksAlreadyKnown = value
-    End Set
-  End Property
-  Public Property StopTrawl As Boolean
-    Get
-      Return _StopTrawl
-    End Get
-    Set(value As Boolean)
-      _StopTrawl = value
-    End Set
-  End Property
-  Public Property DeepSearch As Boolean
-    Get
-      Return _DeepSearch
-    End Get
-    Set(value As Boolean)
-      _DeepSearch = value
-    End Set
-  End Property
-  Public Property LightSearch As Boolean
-    Get
-      Return _LightSearch
-    End Get
-    Set(value As Boolean)
-      _LightSearch = value
-    End Set
-  End Property
+    Public Property UserName As String
+        Get
+            Return _UserName
+        End Get
+        Set(value As String)
+            _UserName = value
+        End Set
+    End Property
+    Public Property Password As String
+        Get
+            Return _Password
+        End Get
+        Set(value As String)
+            _Password = value
+        End Set
+    End Property
+    Public Property BSession As BrowserSession
+        Get
+            Return _BSession
+        End Get
+        Set(value As BrowserSession)
+            _BSession = value
+        End Set
+    End Property
+    Public Property WebAddresses As List(Of SearchAddressLink)
+        Get
+            Return _WebAddresses
+        End Get
+        Set(value As List(Of SearchAddressLink))
+            _WebAddresses = value
+        End Set
+    End Property
+    Public Property FlirtLinksAlreadyKnown As List(Of String)
+        Get
+            Return _FlirtLinksAlreadyKnown
+        End Get
+        Set(value As List(Of String))
+            _FlirtLinksAlreadyKnown = value
+        End Set
+    End Property
+    Public Property StopTrawl As Boolean
+        Get
+            Return _StopTrawl
+        End Get
+        Set(value As Boolean)
+            _StopTrawl = value
+        End Set
+    End Property
+    Public Property DeepSearch As Boolean
+        Get
+            Return _DeepSearch
+        End Get
+        Set(value As Boolean)
+            _DeepSearch = value
+        End Set
+    End Property
+    Public Property LightSearch As Boolean
+        Get
+            Return _LightSearch
+        End Get
+        Set(value As Boolean)
+            _LightSearch = value
+        End Set
+    End Property
+    Public Property WebDriv As OpenQA.Selenium.Firefox.FirefoxDriver
+        Get
+            Return _webDriv
+        End Get
+        Set(value As OpenQA.Selenium.Firefox.FirefoxDriver)
+            _webDriv = value
+        End Set
+    End Property
 
 #End Region
 
 #Region "Constructors"
 
-  Public Sub New()
-    _BSession = New BrowserSession
-    _WebAddresses = New List(Of SearchAddressLink)
-  End Sub
+    Public Sub New()
+        Try
+            _BSession = New BrowserSession
+            _WebAddresses = New List(Of SearchAddressLink)
+            _webDriv = New Firefox.FirefoxDriver()
+        Catch ex As Exception
+
+        End Try
+    End Sub
 
 #End Region
 
 #Region "Public Methods"
 
-  Public Function StartTrawl() As String
+    Public Function StartTrawl() As String
 
-    Try
+        Try
 
-      Dim CategoryWebAddresses As New List(Of SearchAddressLink)
-      Dim CategoryPageWebAddress As String = String.Empty
-      Dim usernames As List(Of ContactInfo) = New List(Of ContactInfo)
-      Dim LastPageNumber As Integer
-      Dim LastSearchPage As Integer = 50
-      Dim hw As New HtmlWeb()
+            Dim CategoryWebAddresses As New List(Of SearchAddressLink)
+            Dim CategoryPageWebAddress As String = String.Empty
+            Dim usernames As List(Of ContactInfo) = New List(Of ContactInfo)
+            Dim LastPageNumber As Integer
+            Dim LastSearchPage As Integer = 50
+            Dim hw As New HtmlWeb()
+            Dim LoopCount = 1
 
-      'Login to the site
-      If (Not NFLogin()) Then
-        Return "Login Falied"
-      End If
-
-      'Populate web addresses already known
-      CategoryWebAddresses = PopulateWebAddresses()
-
-      'Get List of Links already scraped
-      _FlirtLinksAlreadyScraped = PopulateFlirtLinks()
-
-      'Loop through all web addresses 
-      For Each SearchAddLink As SearchAddressLink In CategoryWebAddresses
-
-        'If no web address has been found exit sub
-        If SearchAddLink.Address = String.Empty Then
-          Return ("No Web Addresses Loaded")
-        End If
-
-        'Set the amount of feedback pages to search
-        If SearchAddLink.Address = MAIN_PAGE Then
-          LastSearchPage = 100
-        ElseIf SearchAddLink.IsTopLevelCatagory = True Then
-          LastSearchPage = 50
-        Else
-          LastSearchPage = 20
-        End If
-
-        'Loop through search pages
-        For i = 1 To LastSearchPage
-
-          CategoryPageWebAddress = SearchAddLink.Address & "?page=" & i
-
-          'Get urls for the profiles on that page
-          Dim PageProfiles As List(Of String) = GetPageProfiles(CategoryPageWebAddress)
-          If PageProfiles Is Nothing OrElse PageProfiles.Count = 0 Then
-            Continue For
-          End If
-
-          'Loop through feedback pages of profile
-          For Each FlirtProfile As String In PageProfiles
-
-            'Get Last Page Number
-            LastPageNumber = GetLastPageNumber(FlirtProfile)
-
-            'Get Usernames
-            usernames = GetUserNames(FlirtProfile, LastPageNumber)
-
-            If _StopTrawl = True Then
-              Return "Trawl Stopped"
+            'Login to the site
+            If (Not NFLogin()) Then
+                Return "Login Falied"
             End If
 
-            'Write event log
-            WriteFlirtEventLog(FlirtProfile, LastPageNumber)
-          Next
+            'Populate web addresses already known
+            CategoryWebAddresses = PopulateWebAddresses()
 
-          'Insert usernames into database
-          If usernames IsNot Nothing OrElse usernames.Count > 0 Then
-            For Each continfo As ContactInfo In usernames
-              InsertContacts(continfo)
+            'Get List of Links already scraped
+            _FlirtLinksAlreadyScraped = PopulateFlirtLinks()
+
+            'Total number of pages to count
+            TotalLoopCount = CategoryWebAddresses.Count - 1
+            RaiseEvent _UpdateTotalCount(TotalLoopCount)
+
+            'Loop through all web addresses 
+            For Each SearchAddLink As SearchAddressLink In CategoryWebAddresses
+
+                'If no web address has been found exit sub
+                If SearchAddLink.Address = String.Empty Then
+                    Return ("No Web Addresses Loaded")
+                End If
+
+                'Set the amount of feedback pages to search
+                If SearchAddLink.Address = MAIN_PAGE Then
+                    LastSearchPage = 100
+                ElseIf SearchAddLink.IsTopLevelCatagory = True Then
+                    LastSearchPage = 50
+                Else
+                    LastSearchPage = 20
+                End If
+
+                'Loop through search pages
+                For i = 1 To LastSearchPage
+
+                    CategoryPageWebAddress = SearchAddLink.Address & "?page=" & i
+
+                    'Get urls for the profiles on that page
+                    Dim PageProfiles As List(Of String) = GetPageProfiles(CategoryPageWebAddress)
+                    If PageProfiles Is Nothing OrElse PageProfiles.Count = 0 Then
+                        Continue For
+                    End If
+
+                    'Loop through feedback pages of profile
+                    For Each FlirtProfile As String In PageProfiles
+
+                        'Get Last Page Number
+                        LastPageNumber = GetLastPageNumber(FlirtProfile)
+                        If LastPageNumber > 5 Then
+                            LastPageNumber = 5
+                        End If
+
+                        'Get Usernames
+                        usernames = GetUserNames(FlirtProfile, LastPageNumber)
+
+                        If _StopTrawl = True Then
+                            Return "Trawl Stopped"
+                        End If
+
+                        'Write event log
+                        WriteFlirtEventLog(FlirtProfile, LastPageNumber)
+                    Next
+
+                    'Run Database import
+                    ImportToDatabase(SearchAddLink.CategoryType)
+
+                    WritePageEventLog(SearchAddLink, i)
+
+                    RaiseEvent _DisplayProgressBar(LoopCount)
+                    LoopCount += 1
+                Next
+
             Next
-          Else
-            Continue For
-          End If
 
-          WritePageEventLog(SearchAddLink, i)
+        Catch ex As Exception
+            ErrorLog(ex)
+            MsgBox(ex.Message & Now.ToString)
+        End Try
 
-        Next
-        'Run Database import
-        ImportToDatabase(SearchAddLink.CategoryType)
-      Next
+        Return "All categories Searched"
 
-    Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
-    End Try
+  End Function
 
-    Return "All categories Searched"
+  Public Function ImportContacts(ByVal profilePK As Integer, ByVal profileName As String) As Boolean
 
+    UserName = "British hypno goddess" 'GetFlirtUsername
+    Password = "ookzpadd" 'GetFlirtPassword
+
+    NFLogin()
+
+    'Navigate to Profile Page
+    _webDriv.Navigate.GoToUrl("http://www.niteflirt.com/my_customers")
+
+    'PageScrape the contacts into datatable
+
+    'Import Contacts
+
+
+
+    Return True
   End Function
 
 #End Region
@@ -209,19 +251,43 @@ Public Class Trawler
 
     Try
 
-      _BSession.[Get]("http://www.niteflirt.com/login")
-      _BSession.FormElements("login") = UserName
-      _BSession.FormElements("password") = Password
-      Dim response As String = _BSession.Post("https://www.niteflirt.com/login")
-      If response.Contains("Please try again later") Then
+      _webDriv.Navigate.GoToUrl("http://www.niteflirt.com/login")
+
+      _webDriv.FindElement(By.Id("login")).SendKeys(UserName)
+      _webDriv.FindElement(By.Id("password")).SendKeys(Password)
+
+      Dim elements As System.Collections.ObjectModel.ReadOnlyCollection(Of OpenQA.Selenium.IWebElement) = _webDriv.FindElements(By.ClassName("button"))
+      elements(0).Submit()
+
+      If _webDriv.PageSource.Contains("Sign In") Then
+        '_webDriv = LoginRetry(_webDriv)
         Return False
       End If
 
     Catch ex As Exception
+      ErrorLog(ex)
       MsgBox(ex.Message & Now.ToString)
+      Return False
     End Try
 
     Return True
+
+  End Function
+
+  Private Function LoginRetry(ByVal webDriv As OpenQA.Selenium.Firefox.FirefoxDriver) As OpenQA.Selenium.Firefox.FirefoxDriver
+
+    Dim elements As System.Collections.ObjectModel.ReadOnlyCollection(Of OpenQA.Selenium.IWebElement) = _webDriv.FindElements(By.ClassName("button"))
+    Dim js As IJavaScriptExecutor = TryCast(_webDriv, IJavaScriptExecutor)
+    elements.FirstOrDefault().Submit()
+
+    _webDriv.FindElement(By.Id("login")).SendKeys(UserName)
+    _webDriv.FindElement(By.Id("password")).SendKeys(Password)
+    _webDriv.FindElement(By.Id("recaptcha_response_field_holder")).SendKeys("")
+
+    elements = _webDriv.FindElements(By.ClassName("button"))
+    elements.FirstOrDefault().Submit()
+
+    Return webDriv
 
   End Function
 
@@ -284,6 +350,7 @@ Public Class Trawler
       End If
 
     Catch ex As Exception
+      ErrorLog(ex)
       MsgBox(ex.Message & Now.ToString)
     End Try
 
@@ -309,7 +376,10 @@ Public Class Trawler
       Dim FlirtName As String = String.Empty
 
       For z = 1 To LastPageNumber
-        Dim webpage As String = BSession.Get(FlirtProfile & "?page=" & z)
+        'Dim webpage As String = BSession.Get(FlirtProfile & "?page=" & z)
+        Thread.Sleep(250)
+        _webDriv.Navigate.GoToUrl(FlirtProfile & "?page=" & z)
+        Dim webpage As String = _webDriv.PageSource
         doc.LoadHtml(webpage)
         If doc IsNot Nothing Then
           If z = 1 Then
@@ -325,8 +395,23 @@ Public Class Trawler
         End If
       Next
 
+      If usernames IsNot Nothing OrElse usernames.Count > 0 Then
+        For Each continfo As ContactInfo In usernames
+          InsertContacts(continfo)
+        Next
+        RaiseEvent _DisplayReport(usernames.Count.ToString() & " contacts imported from flirt " & FlirtName)
+        usernames = New List(Of ContactInfo)
+      End If
+
     Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+      If ex.InnerException.ToString().Contains("The operation has timed out") Then
+        NFLogin()
+      End If
+      ErrorLog(ex)
+      'MsgBox(ex.Message & Now.ToString)
+      For Each continfo As ContactInfo In usernames
+        InsertContacts(continfo)
+      Next
     End Try
 
     Return usernames
@@ -350,6 +435,7 @@ Public Class Trawler
       Next
 
     Catch ex As Exception
+      ErrorLog(ex)
       MsgBox(ex.Message & Now.ToString)
     End Try
 
@@ -381,6 +467,7 @@ Public Class Trawler
       End If
 
     Catch ex As Exception
+      ErrorLog(ex)
       MsgBox(ex.Message & Now.ToString)
     End Try
 
@@ -435,7 +522,9 @@ Public Class Trawler
       Next
 
     Catch ex As Exception
-      MsgBox(ex.Message & Now.ToString)
+      ErrorLog(ex)
+      NFLogin()
+      'MsgBox(ex.Message & Now.ToString)
     End Try
 
     Return List
